@@ -6,19 +6,41 @@ dotenv.config()
 
  //sign-up Api
 
-export const SignupUser=async(req,res)=>{
-try {
-    const {username, email, password}=req.body;
-    const hashpassword=await bcrypt.hash(password,10)
-    const loginUser=new auth({username, email, password: hashpassword})
-    await loginUser.save();
-    res.status(201).json({message:"User created successfully"})
-} catch (error) {
-    res.status(500).json({error:error.message})
-}
-}
+ //original working
 
- //login API
+// export const SignupUser=async(req,res)=>{
+// try {
+//     const {username, email, password}=req.body;
+//     const hashpassword=await bcrypt.hash(password,10)
+//     const loginUser=new auth({username, email, password: hashpassword})
+//     await loginUser.save();
+//     res.status(201).json({message:"User created successfully"})
+// } catch (error) {
+//     res.status(500).json({error:error.message})
+// }
+// }
+
+
+//signup API
+export const SignupUser = async (req, res) => {
+    try {
+        const { username, email, password, role } = req.body; // Accept role from request body
+        const hashpassword = await bcrypt.hash(password, 10);
+        const loginUser = new auth({
+            username,
+            email,
+            password: hashpassword,
+            role: role 
+        });
+        await loginUser.save();
+        res.status(201).json({ message: "User created successfully" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
+//login API
 export const Loginuser=async(req, res)=>{
     try {
         const {email, password}=req.body;

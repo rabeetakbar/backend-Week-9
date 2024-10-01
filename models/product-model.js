@@ -5,6 +5,11 @@ const productSchema =new mongoose.Schema({
         type: String,
         required : true,       
     },
+    category : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref:'category',
+        required : true,       
+    },
     quantity : {
         type : Number,
         required : true,
@@ -20,14 +25,12 @@ const productSchema =new mongoose.Schema({
     },
     user : {
     type : mongoose.Schema.Types.ObjectId,
-ref:"users",
-// required:true
+ref:'users',
+required:true
     },
     images:{
   
     type:[String]
-
-      //type: String
 
     }
 

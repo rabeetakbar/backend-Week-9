@@ -36,7 +36,7 @@ import products from "../models/product-model.js";
 
 export const postProductData = async (req, res) => {
         try {
-            const {name , quantity , price, description,user} = req.body;
+            const {name ,category, quantity , price, description,user} = req.body;
     
             // Handle multiple images
             let images = [];
@@ -44,7 +44,7 @@ export const postProductData = async (req, res) => {
                 images = req.files.map(file => file.path); // Array of image paths
             }
     
-            console.log(name , quantity , price, description,user ); // Check the data in the console
+            console.log(name , category, quantity , price, description,user ); // Check the data in the console
     
             const isnameExisted = await products.findOne({ name: name });
             if (isnameExisted) {
@@ -53,7 +53,7 @@ export const postProductData = async (req, res) => {
     
             // Save user data with multiple images
             const productData = new products({
-                name,quantity,price,description,user,images
+                name,category, quantity,price,description,user,images
             });
     
             await productData.save();
@@ -118,7 +118,7 @@ export const updateProductById = async (req, res) => {
         // Find the product by ID and update with the new data
         const updatedProduct = await products.findByIdAndUpdate(
             productId,
-            { name , quantity , price, description,user  }, // Object with the updated fields
+            { name , category, quantity , price, description,user  }, // Object with the updated fields
             { new: true } // This option ensures you get the updated document in the response
         );
 
